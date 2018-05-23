@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="mall@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="mall">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <table id="4" parent="2" name="address"/>
+    <table id="5" parent="2" name="category"/>
+    <table id="6" parent="2" name="color"/>
+    <table id="7" parent="2" name="colors"/>
+    <table id="8" parent="2" name="member"/>
+    <table id="9" parent="2" name="member_cart"/>
+    <table id="10" parent="2" name="order_details"/>
+    <table id="11" parent="2" name="orders"/>
+    <table id="12" parent="2" name="product"/>
+    <table id="13" parent="2" name="versions"/>
+    <column id="14" parent="4" name="aid">
+      <Position>1</Position>
+      <DataType>int(6)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="15" parent="4" name="addr">
+      <Position>2</Position>
+      <DataType>varchar(200)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="16" parent="4" name="name">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="17" parent="4" name="tel">
+      <Position>4</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="18" parent="4" name="mid">
+      <Position>5</Position>
+      <DataType>int(8)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="19" parent="4" name="type">
+      <Position>6</Position>
+      <DataType>int(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="20" parent="4" name="fk_address_mid">
+      <ColNames>mid</ColNames>
+    </index>
+    <key id="21" parent="4" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>aid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="22" parent="4" name="fk_address_mid">
+      <ColNames>mid</ColNames>
+      <RefSchemaName>mall</RefSchemaName>
+      <RefTableName>member</RefTableName>
+      <RefColNames>SID</RefColNames>
+    </foreign-key>
+    <column id="23" parent="5" name="TID">
+      <Position>1</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="24" parent="5" name="TNAME">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="25" parent="5" name="TWOID">
+      <Position>3</Position>
+      <DataType>int(10)|0</DataType>
+    </column>
+    <key id="26" parent="5" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>TID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="27" parent="6" name="coid">
+      <Position>1</Position>
+      <DataType>int(4)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="28" parent="6" name="coname">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="29" parent="6" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>coid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="30" parent="7" name="csid">
+      <Position>1</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="31" parent="7" name="cid">
+      <Position>2</Position>
+      <DataType>int(10)|0</DataType>
+    </column>
+    <column id="32" parent="7" name="prid">
+      <Position>3</Position>
+      <DataType>int(10)|0</DataType>
+    </column>
+    <column id="33" parent="7" name="money">
+      <Position>4</Position>
+      <DataType>int(10)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="34" parent="7" name="img">
+      <Position>5</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="35" parent="7" name="cid">
+      <ColNames>cid</ColNames>
+    </index>
+    <index id="36" parent="7" name="prid">
+      <ColNames>prid</ColNames>
+    </index>
+    <key id="37" parent="7" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>csid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="38" parent="7" name="colors_ibfk_1">
+      <ColNames>cid</ColNames>
+      <RefSchemaName>mall</RefSchemaName>
+      <RefTableName>color</RefTableName>
+      <RefColNames>coid</RefColNames>
+    </foreign-key>
+    <foreign-key id="39" parent="7" name="colors_ibfk_2">
+      <ColNames>prid</ColNames>
+      <RefSchemaName>mall</RefSchemaName>
+      <RefTableName>product</RefTableName>
+      <RefColNames>cid</RefColNames>
+    </foreign-key>
+    <column id="40" parent="8" name="SID">
+      <Position>1</Position>
+      <DataType>int(8)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="41" parent="8" name="USERNAME">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="8" name="PASSWORD">
+      <Position>3</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="8" name="PHONE">
+      <Position>4</Position>
+      <DataType>varchar(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="8" name="MONEY">
+      <Position>5</Position>
+      <DataType>int(10)|0</DataType>
+    </column>
+    <column id="45" parent="8" name="IDENTITY">
+      <Position>6</Position>
+      <DataType>varchar(60)|0</DataType>
+    </column>
+    <column id="46" parent="8" name="STATUS">
+      <Position>7</Position>
+      <DataType>int(2)|0</DataType>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="47" parent="8" name="S_TYPE">
+      <Position>8</Position>
+      <DataType>int(2)|0</DataType>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="48" parent="8" name="SIX">
+      <Position>9</Position>
+      <DataType>int(2)|0</DataType>
+    </column>
+    <index id="49" parent="8" name="USERNAME">
+      <ColNames>USERNAME</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="50" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>SID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="51" parent="8" name="USERNAME">
+      <ColNames>USERNAME</ColNames>
+      <UnderlyingIndexName>USERNAME</UnderlyingIndexName>
+    </key>
+    <column id="52" parent="9" name="id">
+      <Position>1</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="53" parent="9" name="mid">
+      <Position>2</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="54" parent="9" name="prid">
+      <Position>3</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="55" parent="9" name="coid">
+      <Position>4</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="56" parent="9" name="veid">
+      <Position>5</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="57" parent="9" name="num">
+      <Position>6</Position>
+      <DataType>int(10)|0</DataType>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="58" parent="9" name="type">
+      <Position>7</Position>
+      <DataType>int(1)|0</DataType>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <index id="59" parent="9" name="coid">
+      <ColNames>coid</ColNames>
+    </index>
+    <index id="60" parent="9" name="mid">
+      <ColNames>mid</ColNames>
+    </index>
+    <index id="61" parent="9" name="prid">
+      <ColNames>prid</ColNames>
+    </index>
+    <index id="62" parent="9" name="veid">
+      <ColNames>veid</ColNames>
+    </index>
+    <key id="63" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="64" parent="9" name="member_cart_ibfk_4">
+      <ColNames>mid</ColNames>
+      <RefSchemaName>mall</RefSchemaName>
+      <RefTableName>member</RefTableName>
+      <RefColNames>SID</RefColNames>
+    </foreign-key>
+    <foreign-key id="65" parent="9" name="member_cart_ibfk_3">
+      <ColNames>prid</ColNames>
+      <RefSchemaName>mall</RefSchemaName>
+      <RefTableName>product</RefTableName>
+      <RefColNames>cid</RefColNames>
+    </foreign-key>
+    <foreign-key id="66" parent="9" name="member_cart_ibfk_2">
+      <ColNames>coid</ColNames>
+      <RefSchemaName>mall</RefSchemaName>
+      <RefTableName>colors</RefTableName>
+      <RefColNames>csid</RefColNames>
+    </foreign-key>
+    <foreign-key id="67" parent="9" name="member_cart_ibfk_1">
+      <ColNames>veid</ColNames>
+      <RefSchemaName>mall</RefSchemaName>
+      <RefTableName>versions</RefTableName>
+      <RefColNames>vid</RefColNames>
+    </foreign-key>
+    <column id="68" parent="10" name="adid">
+      <Position>1</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="69" parent="10" name="orid">
+      <Position>2</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="70" parent="10" name="mid">
+      <Position>3</Position>
+      <DataType>int(8)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="71" parent="10" name="num">
+      <Position>4</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="72" parent="10" name="oprice">
+      <Position>5</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="73" parent="10" name="pid">
+      <Position>6</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="74" parent="10" name="startTime">
+      <Position>7</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="75" parent="10" name="endTime">
+      <Position>8</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0000-00-00 00:00:00&apos;</DefaultExpression>
+    </column>
+    <column id="76" parent="10" name="vid">
+      <Position>9</Position>
+      <DataType>int(10)|0</DataType>
+    </column>
+    <column id="77" parent="10" name="cid">
+      <Position>10</Position>
+      <DataType>int(10)|0</DataType>
+    </column>
+    <index id="78" parent="10" name="mid">
+      <ColNames>mid</ColNames>
+    </index>
+    <index id="79" parent="10" name="orid">
+      <ColNames>orid</ColNames>
+    </index>
+    <index id="80" parent="10" name="pid">
+      <ColNames>pid</ColNames>
+    </index>
+    <key id="81" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>adid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="82" parent="10" name="order_details_ibfk_3">
+      <ColNames>orid</ColNames>
+      <RefSchemaName>mall</RefSchemaName>
+      <RefTableName>orders</RefTableName>
+      <RefColNames>oid</RefColNames>
+    </foreign-key>
+    <foreign-key id="83" parent="10" name="order_details_ibfk_2">
+      <ColNames>mid</ColNames>
+      <RefSchemaName>mall</RefSchemaName>
+      <RefTableName>member</RefTableName>
+      <RefColNames>SID</RefColNames>
+    </foreign-key>
+    <foreign-key id="84" parent="10" name="order_details_ibfk_1">
+      <ColNames>pid</ColNames>
+      <RefSchemaName>mall</RefSchemaName>
+      <RefTableName>product</RefTableName>
+      <RefColNames>cid</RefColNames>
+    </foreign-key>
+    <column id="85" parent="11" name="oid">
+      <Position>1</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="86" parent="11" name="mid">
+      <Position>2</Position>
+      <DataType>int(8)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="87" parent="11" name="name">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="88" parent="11" name="tel">
+      <Position>4</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="89" parent="11" name="addr">
+      <Position>5</Position>
+      <DataType>varchar(200)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="90" parent="11" name="times">
+      <Position>6</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <index id="91" parent="11" name="mid">
+      <ColNames>mid</ColNames>
+    </index>
+    <key id="92" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>oid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="93" parent="11" name="orders_ibfk_1">
+      <ColNames>mid</ColNames>
+      <RefSchemaName>mall</RefSchemaName>
+      <RefTableName>member</RefTableName>
+      <RefColNames>SID</RefColNames>
+    </foreign-key>
+    <column id="94" parent="12" name="cid">
+      <Position>1</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="95" parent="12" name="cname">
+      <Position>2</Position>
+      <DataType>varchar(300)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="96" parent="12" name="describes">
+      <Position>3</Position>
+      <DataType>varchar(300)|0</DataType>
+    </column>
+    <column id="97" parent="12" name="price">
+      <Position>4</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="98" parent="12" name="inventory">
+      <Position>5</Position>
+      <DataType>int(10)|0</DataType>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="99" parent="12" name="img">
+      <Position>6</Position>
+      <DataType>varchar(150)|0</DataType>
+    </column>
+    <column id="100" parent="12" name="ctype">
+      <Position>7</Position>
+      <DataType>int(10)|0</DataType>
+    </column>
+    <column id="101" parent="12" name="status">
+      <Position>8</Position>
+      <DataType>int(2)|0</DataType>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="102" parent="12" name="counts">
+      <Position>9</Position>
+      <DataType>int(10)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="103" parent="12" name="CTYPE">
+      <ColNames>ctype</ColNames>
+    </index>
+    <key id="104" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>cid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="105" parent="12" name="product_ibfk_1">
+      <ColNames>CTYPE</ColNames>
+      <RefSchemaName>mall</RefSchemaName>
+      <RefTableName>category</RefTableName>
+      <RefColNames>TID</RefColNames>
+    </foreign-key>
+    <column id="106" parent="13" name="vid">
+      <Position>1</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="107" parent="13" name="prid">
+      <Position>2</Position>
+      <DataType>int(10)|0</DataType>
+    </column>
+    <column id="108" parent="13" name="vname">
+      <Position>3</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="109" parent="13" name="vprice">
+      <Position>4</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="110" parent="13" name="prid">
+      <ColNames>prid</ColNames>
+    </index>
+    <key id="111" parent="13" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>vid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="112" parent="13" name="versions_ibfk_1">
+      <ColNames>prid</ColNames>
+      <RefSchemaName>mall</RefSchemaName>
+      <RefTableName>product</RefTableName>
+      <RefColNames>cid</RefColNames>
+    </foreign-key>
+  </database-model>
+</dataSource>

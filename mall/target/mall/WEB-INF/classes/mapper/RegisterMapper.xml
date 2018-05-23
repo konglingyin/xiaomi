@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper标签的name代表命名空间,使用命名空间来区分不同的mapper文件
+目前关于namespace可以随便写,以后使用mapper代理，这会起到关键作用-->
+<mapper namespace="com.hwua.mall.dao.RegisterMapper">
+    <!--
+    id属性是语句的唯一标识
+    resyltType属性标记返回结果中单条结果的类型
+    -->
+    <select id="qureyUserName" resultType="int">
+        SELECT COUNT(SID) FROM member WHERE USERNAME=#{username}
+    </select>
+    <insert id="insertOne" parameterType="map">
+        INSERT INTO member (USERNAME,PASSWORD,PHONE) VALUES (#{username},#{password},#{phone})
+    </insert>
+</mapper>

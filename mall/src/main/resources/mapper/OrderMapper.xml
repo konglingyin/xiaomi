@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper标签的name代表命名空间,使用命名空间来区分不同的mapper文件
+目前关于namespace可以随便写,以后使用mapper代理，这会起到关键作用-->
+<mapper namespace="com.hwua.mall.dao.OrderMapper">
+    <!--
+    id属性是语句的唯一标识
+    resyltType属性标记返回结果中单条结果的类型
+    -->
+    <insert id="insertOrder" parameterType="order" useGeneratedKeys="true" keyProperty="oid">
+        INSERT INTO orders(mid, name, tel, addr) VALUES (#{mid},#{name},#{tel},#{addr})
+    </insert>
+    <insert id="insertDetails" parameterType="map" >
+        INSERT INTO order_details(orid, mid, num, oprice, pid, vid, cid) VALUES
+        <foreach item="maps" collection="maps" separator=",">
+            (#{orid},#{maps.mid},#{maps.num},#{maps.moneys},#{maps.prid},#{maps.veid},#{maps.coid})
+        </foreach>
+    </insert>
+    <resultMap id="queryOdByMidRm" type="orderData">
+        <id column="oid" property="id"/>
+        <collection property="commondity" ofType="orderCommodity" column="oid" select="queryOcByOid">
+        </collection>
+    </resultMap>
+    <select id="queryOdByMid" parameterType="int" resultMap="queryOdByMidRm">
+        SELECT o1.oid,o1.name,o1.tel,o1.addr,o1.times,s1.prices FROM
+  orders AS o1,
+  (SELECT orid,sum(oprice) AS prices FROM order_details WHERE mid=#{mid} GROUP BY orid ) AS s1
+WHERE o1.mid=#{mid} AND o1.oid=s1.orid;
+    </select>
+    <select id="queryOcByOid" resultType="orderCommodity" parameterType="int">
+        SELECT o1.adid,o1.num,o1.oprice AS moneys,o1.startTime,o1.endTime,p.cid,p.cname,v.vname,c2.coname
+        FROM order_details AS o1,
+        product AS p,
+        versions AS v,
+        colors AS c1,
+        color AS c2
+        WHERE o1.pid=p.cid AND o1.vid=v.vid  AND o1.cid=c1.csid AND c1.cid=c2.coid AND o1.orid=#{id};
+    </select>
+</mapper>

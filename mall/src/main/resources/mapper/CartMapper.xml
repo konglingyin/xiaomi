@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper标签的name代表命名空间,使用命名空间来区分不同的mapper文件
+目前关于namespace可以随便写,以后使用mapper代理，这会起到关键作用-->
+<mapper namespace="com.hwua.mall.dao.CartMapper">
+    <!--
+    id属性是语句的唯一标识
+    resyltType属性标记返回结果中单条结果的类型
+    -->
+    <insert id="insetCart" parameterType="map" >
+        INSERT INTO member_cart (mid, prid, coid, veid) VALUES (#{mid},#{prid},#{coid},${veid})
+    </insert>
+    <select id="queryCart" parameterType="int" resultType="map">
+        SELECT m.id,m.num,p.cid,p.cname,p.img,v.vid,v.vname,v.vprice,c.csid,c.money,c2.coname
+        FROM member_cart AS m,
+        product AS p,
+        versions AS v ,
+        colors AS c,
+        color AS c2
+        WHERE m.prid=p.cid AND m.coid=c.csid AND m.veid=v.vid AND m.type=1 AND c.cid=c2.coid AND m.mid=#{id};
+    </select>
+    <update id="alterNum" parameterType="int">
+        UPDATE member_cart SET num=#{num} WHERE id=#{id}
+    </update>
+    <select id="queryArray" resultType="map">
+        SELECT m.id,m.num,p.cid,p.cname,p.img,v.vid,v.vname,v.vprice,c.csid,c.money,c2.coname FROM
+        member_cart AS m,
+        product AS p,
+        versions AS v ,
+        colors AS c,
+        color AS c2
+        WHERE id IN
+        <foreach item="array" open="(" close=")" separator="," collection="array">
+            #{array}
+        </foreach>
+        AND m.prid=p.cid AND m.coid=c.csid AND m.veid=v.vid AND m.type=1 AND c.cid=c2.coid
+    </select>
+    <select id="queryPrice" resultType="map">
+        SELECT m.id,c.money,v.vprice,m.num FROM
+        member_cart AS m,
+        versions AS v ,
+        colors AS c
+        WHERE m.coid=c.csid AND m.veid=v.vid AND m.id IN
+        <foreach item="array" collection="array" separator="," open="(" close=")">
+            #{array}
+        </foreach>
+    </select>
+    <select id="queryAddr" resultType="address" parameterType="int">
+        SELECT * FROM address WHERE mid=#{sid}
+    </select>
+    <insert id="addaddr" parameterType="address" >
+        INSERT INTO address (name,addr,tel,mid) VALUES (#{name},#{addr},#{tel},#{mid})
+    </insert>
+    <select id="queryAddrByid" parameterType="int" resultType="address">
+        SELECT * FROM address WHERE aid=#{id}
+    </select>
+    <select id="queryData"  resultType="map">
+        SELECT m.mid,m.prid,m.coid,m.veid,m.num,v.vprice+c.money AS 'moneys' FROM
+        member_cart AS m,
+        versions AS v ,
+        colors AS c
+        WHERE m.coid=c.csid AND m.veid=v.vid AND id IN
+        <foreach item="array" collection="array" separator="," open="(" close=")">
+            #{array}
+        </foreach>
+    </select>
+    <delete id="deleteCart" >
+        DELETE FROM member_cart WHERE id IN
+        <foreach collection="array" item="array" separator="," open="(" close=")">
+            #{array}
+        </foreach>
+    </delete>
+    <delete id="delAddr" parameterType="int">
+        DELETE FROM address WHERE aid=#{aid}
+    </delete>
+    <select id="setAddrMr" parameterType="int">
+        UPDATE address SET type=1 WHERE aid=#{aid}
+    </select>
+    <select id="setAddrPt" parameterType="int">
+        UPDATE address SET type=0 WHERE mid=#{sid}
+    </select>
+</mapper>
